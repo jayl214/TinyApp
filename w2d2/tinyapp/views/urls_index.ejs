@@ -8,12 +8,13 @@
   <% for( let i in urls ){ %>
     <li>
       <%= urls[i] %> shortens to<a href = <%= urls[i] %> > <%=  i %> </a>
-      <form  method="POST" action= <%= `/urls/${i}/delete` %> >
-        <input type="submit" value="Delete">
-      </form>
       <form method="get" action= <%= `/urls/${i}/edit` %> >
         <input type="submit" value="Edit"/>
       </form>
+      <form  method="POST" action= <%= `/urls/${i}/delete` %> >
+        <input type="submit" value="Delete">
+      </form>
+
     </li>
   <% }; %>
     <li><a href = "http://localhost:8080/urls/new">Shorten a new URL!</a></li>

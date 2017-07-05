@@ -1,10 +1,10 @@
 <h1>Welcome to TinyApp Yo!</h1>
 
 <% if (username !== undefined){ %>
+  <div><%= username%></div>
   <form method="post" action= "/logout" >
     <input type="submit" value="logout"/>
   </form>
-  <div><%= username%></div>
 <% } else{ %>
   <form action="/login" method="POST">
     <label for="username">Login</label>
