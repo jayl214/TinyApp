@@ -66,7 +66,8 @@ app.post("/logout",(req,res) =>{
 
 //new url page
 app.get("/urls/new", (req, res) => {
-  res.render("urls_new");
+  let templateVars = { username: req.cookies["username"] };
+  res.render("urls_new", templateVars);
 });
 
 app.get("/urls", (req, res) => {
