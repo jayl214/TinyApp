@@ -31,9 +31,9 @@ app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
 
-app.post("/login",(req,res){
-
-
+app.post("/login",(req,res)=>{
+  res.cookie('username', req.body["username"]);
+  res.redirect("/urls");
 });
 
 //generate new short URL and insert new long+short URL, redirect back to urls page when done
@@ -62,7 +62,7 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  let templateVars = { urls : urlDatabase }
+  let templateVars = { urls : urlDatabase, username: req.cookies["username"] }
   res.render("urls_index", templateVars);
 });
 
@@ -72,7 +72,7 @@ app.get("/u/:shortURL", (req,res) =>{
 });
 
 app.get("/urls/:id/edit", (req,res) => {
-  let templateVars = { shortURL: req.params.id, urls : urlDatabase };
+  let templateVars = { username: req.cookies["username"], shortURL: req.params.id, urls : urlDatabase };
   res.render("urls_show", templateVars)
 });
 
