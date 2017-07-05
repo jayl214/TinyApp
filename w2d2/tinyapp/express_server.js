@@ -58,6 +58,12 @@ app.post("/urls/:id/edit", (req,res) => {
 });
 
 
+app.post("/logout",(req,res) =>{
+  res.clearCookie("username");
+  res.redirect("/urls");
+
+});
+
 //new url page
 app.get("/urls/new", (req, res) => {
   res.render("urls_new");
