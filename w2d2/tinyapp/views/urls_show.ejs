@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TinyApp</title>
+</head>
+<body>
+  <ul>
+    <li><%= urls[shortURL] %> shortens <%= shortURL %> </li>
+    <form method="POST" action= <%= `/urls/${shortURL}/edit` %> >
+      <label for="longURL">Change URL to:</label>
+      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
+      <input type="submit" value="Update">
+    </form>
+  </ul>
+</body>
+</html>
