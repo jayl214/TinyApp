@@ -1,10 +1,12 @@
 var express = require("express");
 var app = express();
 var PORT = process.env.PORT || 8080; // default port 8080
+const cookieParser = require('cookie-parser')
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs")
+app.use(cookieParser())
 
 var urlDatabase = {
   "b2xVn2": "http://www.lighthouselabs.ca",
@@ -62,7 +64,7 @@ app.get("/urls/new", (req, res) => {
 });
 
 app.get("/urls", (req, res) => {
-  let templateVars = { urls : urlDatabase, username: req.cookies["username"] }
+  let templateVars = { username: req.cookies["username"], urls : urlDatabase }
   res.render("urls_index", templateVars);
 });
 
