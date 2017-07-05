@@ -30,6 +30,12 @@ app.get("/", (req, res) => {
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
 });
+
+app.post("/login",(req,res){
+
+
+});
+
 //generate new short URL and insert new long+short URL, redirect back to urls page when done
 app.post("/urls", (req, res) => {
   let newShort = generateRandomString();
