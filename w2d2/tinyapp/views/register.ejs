@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  </head>
+  <body bgcolor="#EFE9F4" style="font-size:20px; padding:50px;">
+    <% include partials/_header %>
+
+    <form action="/register" method="POST" style="margin:150px;">
+      <label for="email">Email:</label>
+      <input id="email" type="email" name="email" placeholder="123@example.com" style="width: 300px"><br>
+      <label for="password">Password:</label>
+      <input id="email" type="password" name="password" style="width: 300px"><br>
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+</html>

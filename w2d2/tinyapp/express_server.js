@@ -13,6 +13,25 @@ var urlDatabase = {
   "9sm5xK": "http://www.google.com"
 };
 
+const users = {
+  "userRandomID": {
+    id: "userRandomID",
+    email: "user@example.com",
+    password: "purple-monkey-dinosaur"
+  },
+ "user2RandomID": {
+    id: "user2RandomID",
+    email: "user2@example.com",
+    password: "dishwasher-funk"
+  }
+}
+
+function checkForRepInObjOfObjs ( element, key, Obj){
+  for (i in Obj){
+    if( Obj[i][key] === element ) return true;
+  }
+}
+
 function generateRandomString() {
   let randomStr = '';
   let alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -63,12 +82,38 @@ app.post("/logout",(req,res) =>{
   res.redirect("/urls");
 
 });
+//registration handler
+app.post("/register", (req,res)=>{
+  if ( req.body["email"] === '' || req.body["password"] === '' ) {
+    console.log("400: please fill in require fields");
+  } else if ( checkForRepInObjOfObjs( req.body["email"], "email", users) ) {
+    console.log("400: account already registered with that email");
+  }
+  else{
+    let newUserID = generateRandomString();
+    users[newUserID] = {
+      id: newUserID,
+      email: req.body["email"],
+      password: req.body["password"]
+    }
+    console.log (users);
+    res.cookie('user_id', newUserID);
+    res.redirect("/urls");
+  }
+});
 
 //new url page
 app.get("/urls/new", (req, res) => {
   let templateVars = { username: req.cookies["username"] };
   res.render("urls_new", templateVars);
 });
+
+//user registration endpoint
+app.get("/register", (req,res) => {
+  let templateVars = { username: req.cookies["username"] };
+  res.render("register", templateVars);
+})
+
 
 app.get("/urls", (req, res) => {
   let templateVars = { username: req.cookies["username"], urls : urlDatabase }
