@@ -17,10 +17,10 @@
   <div  style="font-size:20px; padding-left: 20px; margin-bottom: 40px;">
     <h3 class="display-3" >Your short links:</h3>
     <ul>
-      <% for( let i in urls ) { %>
+      <% for( let i in urls[id] ) { %>
         <li>
 
-          <%= urls[i] %> shortens to<a href = <%= urls[i] %> > <%=  i %> </a><br>
+          <%= urls[id][i] %> shortens to<a href = <%= urls[id][i] %> > <%=  i %> </a><br>
             <form method="get" action= <%= `/urls/${i}/edit` %> style ="display: inline-block;" >
               <input class="btn btn-info" type="submit" value="Edit"/>
             </form>

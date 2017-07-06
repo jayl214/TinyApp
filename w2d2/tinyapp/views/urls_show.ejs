@@ -6,7 +6,7 @@
 </head>
 <body bgcolor="#E6E6FA">
   <ul>
-    <li><%= urls[shortURL] %> shortens <%= shortURL %> </li>
+    <li><%= urls[id][shortURL] %> shortens <%= shortURL %> </li>
     <form method="POST" action= <%= `/urls/${shortURL}/edit` %> >
       <label for="longURL">Change URL to:</label>
       <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">

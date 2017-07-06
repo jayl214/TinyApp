@@ -9,9 +9,20 @@ app.set("view engine", "ejs")
 app.use(cookieParser())
 
 var urlDatabase = {
-  "b2xVn2": "http://www.lighthouselabs.ca",
-  "9sm5xK": "http://www.google.com"
-};
+  "userRandomID" : {
+    "b2xVn2": "http://www.lighthouselabs.ca",
+    "9sm5xK": "http://www.google.com"
+  },
+  "user2RandomID" : {
+    "b2xVn2": "http://www.lighthouselabs.ca",
+    "9sm5xK": "http://www.google.com"
+  }
+}
+
+// var urlDatabase = {
+//   "b2xVn2": "http://www.lighthouselabs.ca",
+//   "9sm5xK": "http://www.google.com"
+// };
 
 const users = {
   "userRandomID": {
@@ -60,7 +71,7 @@ app.get("/urls.json", (req, res) => {
 //generate new short URL and insert new long+short URL, redirect back to urls page when done
 app.post("/urls", (req, res) => {
   let newShort = generateRandomString();
-  urlDatabase[newShort.toString()] = req.body["longURL"].toString();
+  urlDatabase[req.cookies.user_id][newShort.toString()] = req.body["longURL"].toString();
   console.log(req.body, newShort);
   res.redirect("http://localhost:8080/urls");
 });
@@ -72,7 +83,7 @@ app.post("/urls/:id/delete", (req, res) =>{
 
 
 app.post("/urls/:id/edit", (req,res) => {
-  urlDatabase[req.params.id] = req.body["longURL"];
+  urlDatabase[req.cookies.user_id][req.params.id] = req.body["longURL"];
   res.redirect("/urls");
 });
 
@@ -100,18 +111,22 @@ app.post("/register", (req,res)=>{
     }
     console.log (users);
     res.cookie('user_id', newUserID);
+    urlDatabase[newUserID] = {
+      "b2xVn2": "http://www.lighthouselabs.ca",
+      "9sm5xK": "http://www.google.com"
+    }
     res.redirect("/urls");
   }
 });
 //login handler:
 app.post("/login",(req,res)=>{
   for (i in users){
-    if (users[i].email === req.body["email"] && users[i].password === req.body["password"]){
+    if ( users[i].email === req.body["email"] && users[i].password === req.body["password"]){
       res.cookie('user_id', users[i].id);
       res.redirect("/urls");
     }
-    else res.send("invalid user information!")
   }
+  res.send("Invalid login info.")
 });
 
 app.get("/login",(req,res)=>{
