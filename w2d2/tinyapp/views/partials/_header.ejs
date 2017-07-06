@@ -6,23 +6,21 @@
       <h1 style="  color: #F9F9F9;  padding-left: 20px; font-weight: bold; " >TinyApp</h1>
     </div>
 
-    <div class = "col-sm-5">
-    </div>
-
+    <div class = "col-sm-5"></div>
+    <% console.log(user) %>
     <div class = "col-sm-3", style=" padding-top: 20px; padding-right: 30px; ">
-      <% if (username !== undefined){ %>
+      <% if (user){ %>
         <div align="right" >
-          <div style=" color: #F9F9F9; font-weight:bold; display: inline-block;" > Welcome <%= username%>!</div>
+          <div style=" color: #F9F9F9; font-weight:bold; display: inline-block;" > Welcome!  </div>
           <form method="post" action= "/logout" style="display: inline-block; color: #F9F9F9; font-weight:bold; ">
             <input class="btn btn-secondary" type="submit" value="logout"/>
           </form>
         </div>
       <% } else{ %>
-        <form action="/login" method="POST" style=" color: #F9F9F9; font-weight:bold;" display: inline-block; >
-          <label for="username" >Login: </label>
-          <input id="username" type="text" name="username" placeholder="username" style="color: black;">
+        <form action="/login" method="GET" style=" color: #F9F9F9; font-weight:bold;" display: inline-block; >
           <input class="btn btn-secondary" type="submit" value="Login">
         </form>
+        <div></div>
       <% } %>
     </div>
 
