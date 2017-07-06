@@ -77,7 +77,7 @@ app.post("/urls", (req, res) => {
 });
 //delete an entry
 app.post("/urls/:id/delete", (req, res) =>{
-  delete urlDatabase[req.params.id];
+  delete urlDatabase[req.cookies.user_id][req.params.id];
   res.redirect("/urls");
 });
 
