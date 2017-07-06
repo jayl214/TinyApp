@@ -85,8 +85,10 @@ app.post("/logout",(req,res) =>{
 //registration handler: generates new user ID and stores info in users obj
 app.post("/register", (req,res)=>{
   if ( req.body["email"] === '' || req.body["password"] === '' ) {
+    res.send("ERROR 400: please fill in require fields");
     console.log("400: please fill in require fields");
   } else if ( checkForRepInObjOfObjs( req.body["email"], "email", users) ) {
+    res.send("ERROR 400: account already registered with that email");
     console.log("400: account already registered with that email");
   }
   else{
@@ -108,6 +110,7 @@ app.post("/login",(req,res)=>{
       res.cookie('user_id', users[i].id);
       res.redirect("/urls");
     }
+    else res.send("invalid user information!")
   }
 });
 
@@ -118,8 +121,12 @@ app.get("/login",(req,res)=>{
 
 //new url page
 app.get("/urls/new", (req, res) => {
-  let templateVars = { user : users[req.cookies.user_id] , urls : urlDatabase, id : req.cookies.user_id };
-  res.render("urls_new", templateVars);
+  if(users[req.cookies.user_id]){
+    let templateVars = { user : users[req.cookies.user_id] , urls : urlDatabase, id : req.cookies.user_id };
+    res.render("urls_new", templateVars);
+  } else{
+    res.send("Only registered members can shorten new URL's")
+  }
 });
 
 //user registration endpoint
