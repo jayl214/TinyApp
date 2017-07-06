@@ -157,8 +157,15 @@ app.get("/urls", (req, res) => {
 });
 
 app.get("/u/:shortURL", (req,res) =>{
-  let longURL = urlDatabase[req.params.shortURL];
-  res.redirect(longURL);
+  let tiny = req.params.shortURL;
+  console.log("debug")
+  for (i in urlDatabase) {
+    console.log(i)
+    if (urlDatabase[i][tiny]){
+      res.redirect(urlDatabase[i][tiny]);
+    }
+  }
+  res.send("That short URL doesn't exist.");
 });
 
 app.get("/urls/:id/edit", (req,res) => {
