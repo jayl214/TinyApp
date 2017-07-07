@@ -32,8 +32,6 @@ var urlDatabase = {
   // }
 }
 
-
-
 const users = {
   // "userRandomID": {
   //   id: "userRandomID",
@@ -152,7 +150,7 @@ app.get("/urls/new", (req, res) => {
     let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id };
     res.render("urls_new", templateVars);
   } else{
-    res.send("Only registered members can shorten new URL's")
+    res.redirect("/register");
   }
 });
 

@@ -8,7 +8,7 @@
   <% include partials/_header %>
   <div class="jumbotron" align= "center" style=" height: 400px; background-color: #66c2ff; margin-top: 7% ">
 
-    <h3 style="font-weight:bold; color: #F9F9F9;" ><%= urls[id][shortURL] %> shortens <%= shortURL %></h3><br>
+    <h3 style="font-weight:bold; color: #F9F9F9;" ><%= shortURL %> is the shortURL of <%= urls[id][shortURL] %><%= shortURL %></h3><br>
 
     <form method="post" action= <%= `/urls/${shortURL}/edit?_method=PUT` %> >
       <div class="input-group input-group-lg">
