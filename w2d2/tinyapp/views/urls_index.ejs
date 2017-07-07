@@ -25,7 +25,7 @@
       <% for( let i in urls[id] ) { %>
         <li class = "list-group-item" >
 
-          <%= urls[id][i] %> shortens to<a href = <%= urls[id][i] %> > <%=  i %> </a><br>
+          <%= urls[id][i] %> shortens to<a href = <%=`/u/${i}`%>  <%= urls[id][i] %> > <%=  i %> </a><br>
             <form method="get" action= <%= `/urls/${i}/edit` %> style ="display: inline-block;" >
               <input class="btn btn-info" type="submit" value="Edit" >
             </form>

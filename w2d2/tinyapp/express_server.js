@@ -32,6 +32,17 @@ var urlDatabase = {
   // }
 }
 
+var statsDatabase = {
+  // "9sm5xK": {
+  //   visitCount: 0,
+  //   timeStamps: []
+  // },
+  // "b2xVn2":{
+  //   visitCount: 0,
+  //   timeStamps: []
+  // }
+}
+
 const users = {
   // "userRandomID": {
   //   id: "userRandomID",
@@ -80,6 +91,10 @@ app.get("/urls.json", (req, res) => {
 app.post("/urls", (req, res) => {
   let newShort = generateRandomString();
   urlDatabase[req.session.user_id][newShort.toString()] = req.body["longURL"].toString();
+  statsDatabase[newShort] = {
+    visitCount : 0,
+    timeStamps : []
+  }
   res.redirect("http://localhost:8080/urls");
 });
 //delete an entry
@@ -173,9 +188,14 @@ app.get("/urls", (req, res) => {
 
 app.get("/u/:shortURL", (req,res) =>{
   let tiny = req.params.shortURL;
+  let newDate = new Date();
   for (i in urlDatabase) {
     if (urlDatabase[i][tiny]){
       res.redirect(urlDatabase[i][tiny]);
+      statsDatabase[tiny].visitCount ++;
+      statsDatabase[tiny].timeStamps.push(newDate);
+      console.log(statsDatabase[tiny].timeStamps);
+      return;
     }
   }
   res.send("That short URL doesn't exist.");
@@ -195,7 +215,7 @@ app.get("/urls/:id/edit", (req,res) => {
   if (!req.session.user_id){
     res.send("Please login to use TinyApp");
   } else if (checkIfUserOwnsURL( urlDatabase[req.session.user_id], req.params.id)) {
-    let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, shortURL: req.params.id };
+    let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, shortURL: req.params.id, visits : statsDatabase[req.params.id].visitCount};
     res.render("urls_show", templateVars)
   } else {
     res.send("You aren't authorized to edit that URL!")
