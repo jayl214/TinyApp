@@ -8,11 +8,11 @@
   <% include partials/_header %>
   <div class="jumbotron" align= "center" style=" height: 400px; background-color: #66c2ff; margin-top: 7% ">
 
-    <h3 style="font-weight:bold; color: #F9F9F9;" ><%= shortURL %> is the shortURL of <%= urls[id][shortURL] %><%= shortURL %></h3>
-    <h4>This TinyURL has been used <%= visits %> times!</h4><br>
+    <h3 style="font-weight:bold; color: #F9F9F9;" ><%= shortURL %> is the shortURL of <%= urls[id][shortURL] %></h3>
+    <h4 style="color:#F9F9F9; " >This TinyURL has been used <%= visits %> times!</h4><br>
     <form method="post" action= <%= `/urls/${shortURL}/edit?_method=PUT` %> >
       <div class="input-group input-group-lg">
-        <input class="form-control" id="longURL" type="text" name="longURL" placeholder="http://" aria-describedby="sizing-addon1"  style="width: 700px">
+        <input class="form-control" id="longURL" type="text" name="longURL" value="http://" aria-describedby="sizing-addon1"  style="width: 700px">
         <input class="btn btn-default btn-lg" role="group" type="submit" value="Update" style="background-color:#FDCA40" >
       </div>
     </form>

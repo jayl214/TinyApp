@@ -105,8 +105,9 @@ app.delete("/urls/:id/delete", (req, res) =>{
 
 
 app.put("/urls/:id/edit", (req,res) => {
-  urlDatabase[req.session.user_id][req.params.id] = req.body["longURL"];
-  res.redirect("/urls");
+    urlDatabase[req.session.user_id][req.params.id] = req.body["longURL"];
+    res.redirect("/urls");
+
 });
 
 
