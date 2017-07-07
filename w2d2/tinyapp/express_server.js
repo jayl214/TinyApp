@@ -135,11 +135,14 @@ app.post("/login",(req,res)=>{
       res.redirect("/urls");
     }
   }
-  res.send("Invalid login info.")
+  let errorMessage = "Invalid login info."
+  let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage };
+  res.render("login", templateVars);
 });
 
 app.get("/login",(req,res)=>{
-  let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id };
+  let errorMessage = '';
+  let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage };
   res.render("login", templateVars);
 });
 

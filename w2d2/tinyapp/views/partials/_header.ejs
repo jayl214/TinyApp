@@ -1,28 +1,30 @@
-<div style=" background-color: #1a75ff;" class = "container.fluid">
+<div style=" background-color: #2176FF;" class = "container.fluid">
 
   <div class = "row">
 
     <div class = "col-sm-4" style="font-size:20px; padding-bottom: 20px; ">
-      <h1 style="  color: #F9F9F9;  padding-left: 20px; font-weight: bold; " >TinyApp</h1>
+      <h1 style="padding-left: 40px; font-weight: bold; " ><a href="/urls" style="  color: #F9F9F9 ; text-decoration: none" >TinyApp <span class="glyphicon glyphicon-scissors" aria-hidden="true" style="color: #FDCA40 "></span></a></h1>
     </div>
 
     <div class = "col-sm-5"></div>
     <% console.log(user) %>
-    <div class = "col-sm-3", style=" padding-top: 20px; padding-right: 30px; ">
+    <div class = "col-sm-3", style=" padding-top: 20px; padding-right: 20px; ">
       <% if (user){ %>
-        <div align="right" >
-          <div style=" color: #F9F9F9; font-weight:bold; display: inline-block;" > Welcome!  </div>
+        <div align="right" style="padding-right: 20px">
+          <div style=" color: #F9F9F9; font-weight:bold; display: inline-block;" > Welcome, <%=user.email%>!  </div>
           <form method="post" action= "/logout" style="display: inline-block; color: #F9F9F9; font-weight:bold; ">
-            <input class="btn btn-secondary" type="submit" value="logout"/>
+            <input class="btn btn-danger" type="submit" value="logout"/>
           </form>
         </div>
       <% } else{ %>
-        <form action="/login" method="GET" style=" color: #F9F9F9; font-weight:bold; display: inline-block;" >
-          <input class="btn btn-secondary" type="submit" value="Login">
-        </form>
-        <form action="/register" method="GET" style=" color: #F9F9F9; font-weight:bold; display: inline-block; ">
-          <input class="btn btn-secondary" type="submit" value="Register">
-        </form>
+        <div align = "right" style="padding-right: 20px" >
+          <form action="/login" method="GET" style=" color: #F9F9F9; font-weight:bold; display: inline-block;" >
+            <input class="btn btn-secondary" type="submit" value="Login" style="background-color: #FDCA40; color: #31393C" >
+          </form>
+          <form action="/register" method="GET" style=" color: #F9F9F9; font-weight:bold; display: inline-block; ">
+            <input class="btn btn-secondary" type="submit" value="Register" style="background-color: #F79824; color: #31393C" >
+          </form>
+        </div>
       <% } %>
     </div>
 

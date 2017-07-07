@@ -4,25 +4,30 @@
   <title>TinyApp</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body style=" background-color: #F9F9F9 " >
+<body style=" background-color: #f2f2f2 " >
   <% include partials/_header %>
-  <div class="jumbotron" style=" padding-left: 20px; " >
-    <h1 class="display-3">Welcome!</h1>
+  <div class="jumbotron" style=" color:white ; padding-left: 40px; background-color: #66c2ff " >
+    <h1 class="display-3"  >Welcome!</h1>
     <p class="lead">Sick of tiresome, long-winded URL's? Use TinyApp to shorten any URL!</p>
-    <p style="font-size: 18px;" >Just call me Bill Turner cuz I'm super attached to Bootstrap</p>
+    <p style="font-size: 18px;" >Just input your URL into this handy-dandy shortener to make it easier to share your favourite sites with the world!</p>
     <p class="lead">
-      <a class="btn btn-info btn-lg" href = "http://localhost:8080/urls/new" role="button">Try me!</a>
+      <% if (user){ %>
+        <a class="btn btn-info btn-lg" href = "http://localhost:8080/urls/new" role="button" style=" background-color: #FDCA40; " >Try me!</a>
+      <% } else{ %>
+        <a class="btn btn-info btn-lg" href = "http://localhost:8080/register" role="button" style=" background-color: #FDCA40; " >Try me!</a>
+      <% } %>
     </p>
   </div>
-  <div  style="font-size:20px; padding-left: 20px; margin-bottom: 40px;">
-    <h3 class="display-3" >Your short links:</h3>
-    <ul>
+  <div  style="font-size:20px; margin: 40px;">
+
+    <h3 class="display-3" style="color:#31393C" >Your short links:</h3>
+    <ul class="list-group" >
       <% for( let i in urls[id] ) { %>
-        <li>
+        <li class = "list-group-item" >
 
           <%= urls[id][i] %> shortens to<a href = <%= urls[id][i] %> > <%=  i %> </a><br>
             <form method="get" action= <%= `/urls/${i}/edit` %> style ="display: inline-block;" >
-              <input class="btn btn-info" type="submit" value="Edit"/>
+              <input class="btn btn-info" type="submit" value="Edit" >
             </form>
             <form  method="POST" action= <%= `/urls/${i}/delete` %> style ="display: inline-block;" >
               <input class="btn btn-danger" type="submit" value="Delete">
@@ -30,7 +35,7 @@
 
         </li>
       <% }; %>
-        <li><a href = "http://localhost:8080/urls/new">Shorten a new URL!</a></li>
+        <li class="list-group-item" ><a href = "http://localhost:8080/urls/new">Shorten a new URL!</a></li>
     </ul>
   </div>
 </body>

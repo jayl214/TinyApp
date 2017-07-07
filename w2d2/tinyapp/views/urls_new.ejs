@@ -3,13 +3,20 @@
   <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
-  <body bgcolor="#EFE9F4" style="font-size:20px; padding:50px;">
+  <body style="background-color: #66c2ff;" >
     <% include partials/_header %>
+    <div class="jumbotron" align= "center" style=" height: 400px; background-color: #66c2ff; margin-top: 7% ">
+      <div>
+        <h3 style="font-weight:bold; color: #F9F9F9;" >Shorten a new URL!</h3><br>
+      </div><br>
 
-    <form action="/urls" method="POST" style="margin:150px;">
-      <label for="longURL">Enter a URL:</label>
-      <input id="longURL" type="text" name="longURL" placeholder="http://" style="width: 300px">
-      <input type="submit" value="Submit">
-    </form>
+      <form action="/urls" method="POST" >
+        <div class="input-group input-group-lg" >
+          <input class="form-control" id="longURL" type="text" name="longURL" placeholder="http://" style="width: 700px" aria-describedby="sizing-addon1"  >
+          <input  class="btn btn-default btn-lg" role="group" type="submit" value="Shorten" style="background-color:#FDCA40" >
+        </div>
+      </form>
+
+    </div>
   </body>
 </html>
