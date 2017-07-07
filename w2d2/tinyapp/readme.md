@@ -1,7 +1,5 @@
 #TinyApp Project
-
-##Final Product
-!!![screenshots]
+TinyApp is a web app that takes any URL and shortens it into a 6 character alphanumerical string. Users can create an account that will keep track of their shortened URL's, letting only them edit and deactivate the short link, but allowing anybody to use them. Neat.
 
 ##Dependancies:
 
