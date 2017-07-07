@@ -103,11 +103,14 @@ app.post("/logout",(req,res) =>{
 //registration handler: generates new user ID and stores info in users obj
 app.post("/register", (req,res)=>{
   if ( req.body["email"] === '' || req.body["password"] === '' ) {
-    res.send("ERROR 400: please fill in require fields");
-    console.log("400: please fill in require fields");
+    let errorMessage = "Please fill in require fields"
+    let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage };
+    res.render("register", templateVars)
+
   } else if ( checkForRepInObjOfObjs( req.body["email"], "email", users) ) {
-    res.send("ERROR 400: account already registered with that email");
-    console.log("400: account already registered with that email");
+    let errorMessage = "Account already registered with that email"
+    let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage };
+    res.render("register", templateVars)
   }
   else{
     let newUserID = generateRandomString();
@@ -156,12 +159,14 @@ app.get("/urls/new", (req, res) => {
 
 //user registration endpoint
 app.get("/register", (req,res) => {
-  let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id };
+  errorMessage = '';
+  let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage};
   res.render("register", templateVars);
 });
 
 
 app.get("/urls", (req, res) => {
+  let errorMessage = '';
   let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id }
   res.render("urls_index", templateVars);
 });

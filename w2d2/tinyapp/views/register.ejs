@@ -7,7 +7,10 @@
     <% include partials/_header %>
     <div class="jumbotron" style="background-color: #66c2ff; color: #F9F9F9; height: 600px;" align="center">
       <div style="margin:40px"> <h2>Registration:</h2> </div>
-       <div style="width:500px;">
+        <% if (loginErr){ %>
+          <div class="alert alert-danger" role="alert" style="width:500px" align="center" ><%=loginErr%></div>
+        <% } %>
+        <div style="width:500px;">
 
         <form action="/register" method="POST" >
 
