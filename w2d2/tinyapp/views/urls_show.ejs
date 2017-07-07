@@ -10,7 +10,7 @@
 
     <h3 style="font-weight:bold; color: #F9F9F9;" ><%= urls[id][shortURL] %> shortens <%= shortURL %></h3><br>
 
-    <form method="POST" action= <%= `/urls/${shortURL}/edit` %> >
+    <form method="post" action= <%= `/urls/${shortURL}/edit?_method=PUT` %> >
       <div class="input-group input-group-lg">
         <input class="form-control" id="longURL" type="text" name="longURL" placeholder="http://" aria-describedby="sizing-addon1"  style="width: 700px">
         <input class="btn btn-default btn-lg" role="group" type="submit" value="Update" style="background-color:#FDCA40" >

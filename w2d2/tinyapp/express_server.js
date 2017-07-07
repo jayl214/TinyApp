@@ -3,12 +3,15 @@ var app = express();
 var PORT = process.env.PORT || 8080; // default port 8080
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcrypt');
-const cookieSession = require('cookie-session')
+const cookieSession = require('cookie-session');
+const methodOverride = require('method-override');
 
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
 app.use(cookieParser());
+app.use(methodOverride('_method'));
+
 
 app.use(cookieSession({
   name: 'session',
@@ -29,10 +32,7 @@ var urlDatabase = {
   // }
 }
 
-// var urlDatabase = {
-//   "b2xVn2": "http://www.lighthouselabs.ca",
-//   "9sm5xK": "http://www.google.com"
-// };
+
 
 const users = {
   // "userRandomID": {
@@ -72,7 +72,7 @@ function generateRandomString() {
 };
 //redir root to urls
 app.get("/", (req, res) => {
-  res.redirect("http://localhost:8080/urls");
+  res.redirect("/urls");
 });
 app.get("/urls.json", (req, res) => {
   res.json(urlDatabase);
@@ -85,13 +85,13 @@ app.post("/urls", (req, res) => {
   res.redirect("http://localhost:8080/urls");
 });
 //delete an entry
-app.post("/urls/:id/delete", (req, res) =>{
+app.delete("/urls/:id/delete", (req, res) =>{
   delete urlDatabase[req.session.user_id][req.params.id];
   res.redirect("/urls");
 });
 
 
-app.post("/urls/:id/edit", (req,res) => {
+app.put("/urls/:id/edit", (req,res) => {
   urlDatabase[req.session.user_id][req.params.id] = req.body["longURL"];
   res.redirect("/urls");
 });
@@ -198,7 +198,6 @@ app.get("/urls/:id/edit", (req,res) => {
     res.send("You aren't authorized to edit that URL!")
   }
 });
-
 
 // app.get("/urls/:id", (req,res) => {
 //   let templateVars = { shortURL: req.params.id, urls : urlDatabase };

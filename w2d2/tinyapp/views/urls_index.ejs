@@ -29,7 +29,7 @@
             <form method="get" action= <%= `/urls/${i}/edit` %> style ="display: inline-block;" >
               <input class="btn btn-info" type="submit" value="Edit" >
             </form>
-            <form  method="POST" action= <%= `/urls/${i}/delete` %> style ="display: inline-block;" >
+            <form  method="post" action= <%= `/urls/${i}/delete?_method=DELETE` %> style ="display: inline-block;" >
               <input class="btn btn-danger" type="submit" value="Delete">
             </form>
 
