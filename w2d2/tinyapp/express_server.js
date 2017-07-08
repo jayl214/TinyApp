@@ -66,7 +66,7 @@ function checkForRepInObjOfObjs ( element, key, Obj){
 
   }
 }
-
+//random ID generator
 function generateRandomString() {
   let randomStr = '';
   let alphabet = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -103,14 +103,14 @@ app.delete("/urls/:id/delete", (req, res) =>{
   res.redirect("/urls");
 });
 
-
+//update value of a short URL
 app.put("/urls/:id/edit", (req,res) => {
     urlDatabase[req.session.user_id][req.params.id] = req.body["longURL"];
     res.redirect("/urls");
 
 });
 
-
+//logout: kill cookies
 app.post("/logout",(req,res) =>{
   req.session = null;
   res.redirect("/urls");
@@ -119,7 +119,7 @@ app.post("/logout",(req,res) =>{
 //registration handler: generates new user ID and stores info in users obj
 app.post("/register", (req,res)=>{
   if ( req.body["email"] === '' || req.body["password"] === '' ) {
-    let errorMessage = "Please fill in require fields"
+    let errorMessage = "Please fill in required fields"
     let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage };
     res.render("register", templateVars)
 
@@ -160,6 +160,10 @@ app.post("/login",(req,res)=>{
 app.get("/login",(req,res)=>{
   let errorMessage = '';
   let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage };
+  if ( users[req.session.user_id] ){
+    req.session = null;
+    res.redirect("/login")
+  };
   res.render("login", templateVars);
 });
 
@@ -177,13 +181,17 @@ app.get("/urls/new", (req, res) => {
 app.get("/register", (req,res) => {
   errorMessage = '';
   let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage};
+  if ( users[req.session.user_id] ){
+    req.session = null;
+    res.redirect("/register");
+  };
   res.render("register", templateVars);
 });
 
 
 app.get("/urls", (req, res) => {
   let errorMessage = '';
-  let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id }
+  let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, err : errorMessage }
   res.render("urls_index", templateVars);
 });
 
@@ -199,7 +207,9 @@ app.get("/u/:shortURL", (req,res) =>{
       return;
     }
   }
-  res.send("That short URL doesn't exist.");
+  let errorMessage = "That TinyURL doesn't exist";
+  let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, err : errorMessage }
+  res.render("urls_index", templateVars);
 });
 
 app.get("/urls/:id/edit", (req,res) => {
@@ -211,22 +221,21 @@ app.get("/urls/:id/edit", (req,res) => {
       }
     }
   };
-  console.log(req.session.user_id);
-  console.log(users);
+
   if (!req.session.user_id){
-    res.send("Please login to use TinyApp");
+    let errorMessage = "Please login to use TinyApp";
+    let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage};
+    res.render("login", templateVars);
   } else if (checkIfUserOwnsURL( urlDatabase[req.session.user_id], req.params.id)) {
     let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, shortURL: req.params.id, visits : statsDatabase[req.params.id].visitCount};
     res.render("urls_show", templateVars)
   } else {
-    res.send("You aren't authorized to edit that URL!")
+    let errorMessage = "You aren't authorized to edit that URL!";
+    let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, err : errorMessage }
+    res.render("urls_index", templateVars);
   }
 });
 
-// app.get("/urls/:id", (req,res) => {
-//   let templateVars = { shortURL: req.params.id, urls : urlDatabase };
-//   res.render("urls_show", templateVars);
-// });
 
 app.get("/hello", (req, res) => {
   res.end("<html><body>Hello <b>World</b></body></html>\n");

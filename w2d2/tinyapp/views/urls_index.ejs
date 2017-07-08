@@ -18,9 +18,12 @@
       <% } %>
     </p>
   </div>
-  <div  style="font-size:20px; margin: 40px;">
 
-    <h3 class="display-3" style="color:#31393C" >Your short links:</h3>
+  <div  style="font-size:20px; margin: 40px;">
+    <% if (err){ %>
+      <div class="alert alert-danger" role="alert" style="width:500px" align="center" ><%=err%></div>
+    <% } %>
+    <h3 class="display-3" style="color:#31393C" >Your TinyURLs:</h3>
     <ul class="list-group" >
       <% for( let i in urls[id] ) { %>
         <li class = "list-group-item" >
