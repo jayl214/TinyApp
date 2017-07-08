@@ -4,12 +4,15 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <title>TinyApp</title>
 </head>
+
 <body style="background-color: #66c2ff;">
   <% include partials/_header %>
+
   <div class="jumbotron" align= "center" style=" height: 400px; background-color: #66c2ff; margin-top: 7% ">
 
     <h3 style="font-weight:bold; color: #F9F9F9;" ><%= shortURL %> is the shortURL of <%= urls[id][shortURL] %></h3>
     <h4 style="color:#F9F9F9; " >This TinyURL has been used <%= visits %> times!</h4><br>
+
     <form method="post" action= <%= `/urls/${shortURL}/edit?_method=PUT` %> >
       <div class="input-group input-group-lg">
         <input class="form-control" id="longURL" type="text" name="longURL" value="http://" aria-describedby="sizing-addon1"  style="width: 700px">

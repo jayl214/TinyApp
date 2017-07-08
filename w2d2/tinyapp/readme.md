@@ -20,6 +20,6 @@ TinyApp is a web app that takes any URL and shortens it into a 6 character alpha
 
 ## Getting Started
 
--Install dependancies ( `npm install` )
-- Run the development web server ( `node express_server.js )
+- Install dependancies ( `npm install` )
+- Run the development web server ( `node express_server.js` )
 

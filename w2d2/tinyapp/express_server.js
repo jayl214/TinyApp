@@ -197,6 +197,7 @@ app.get("/urls", (req, res) => {
 
 app.get("/u/:shortURL", (req,res) =>{
   let tiny = req.params.shortURL;
+  //logs timestamp any time a short URL is used
   let newDate = new Date();
   for (i in urlDatabase) {
     if (urlDatabase[i][tiny]){
@@ -221,15 +222,15 @@ app.get("/urls/:id/edit", (req,res) => {
       }
     }
   };
-
-  if (!req.session.user_id){
+  //trying to edit a file if user:
+  if (!req.session.user_id){  //is not logged in (failure)
     let errorMessage = "Please login to use TinyApp";
     let templateVars = { user : users[req.session.user_id] , id : req.session.user_id, loginErr: errorMessage};
     res.render("login", templateVars);
-  } else if (checkIfUserOwnsURL( urlDatabase[req.session.user_id], req.params.id)) {
+  } else if (checkIfUserOwnsURL( urlDatabase[req.session.user_id], req.params.id)) { //logged in and authorized(success)
     let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, shortURL: req.params.id, visits : statsDatabase[req.params.id].visitCount};
     res.render("urls_show", templateVars)
-  } else {
+  } else { //does not own TinyURL (failure)
     let errorMessage = "You aren't authorized to edit that URL!";
     let templateVars = { user : users[req.session.user_id] , urls : urlDatabase, id : req.session.user_id, err : errorMessage }
     res.render("urls_index", templateVars);
@@ -237,9 +238,9 @@ app.get("/urls/:id/edit", (req,res) => {
 });
 
 
-app.get("/hello", (req, res) => {
-  res.end("<html><body>Hello <b>World</b></body></html>\n");
-});
+// app.get("/hello", (req, res) => {
+//   res.end("<html><body>Hello <b>World</b></body></html>\n");
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}!`);

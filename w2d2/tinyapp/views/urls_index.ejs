@@ -4,27 +4,29 @@
   <title>TinyApp</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
+
 <body style=" background-color: #f2f2f2 " >
   <% include partials/_header %>
+
   <div class="jumbotron" style=" color:white ; padding-left: 40px; background-color: #66c2ff " >
     <h1 class="display-3"  >Welcome!</h1>
     <p class="lead">Sick of tiresome, long-winded URL's? Use TinyApp to shorten any URL!</p>
     <p style="font-size: 18px;" >Just input your URL into this handy-dandy shortener to make it easier to share your favourite sites with the world!</p>
+    <!-- event handler will redirect to register or create new based on whether or not user is logged in -->
     <p class="lead">
-      <% if (user){ %>
-        <a class="btn btn-info btn-lg" href = "http://localhost:8080/urls/new" role="button" style=" background-color: #FDCA40; " >Try me!</a>
-      <% } else{ %>
-        <a class="btn btn-info btn-lg" href = "http://localhost:8080/register" role="button" style=" background-color: #FDCA40; " >Try me!</a>
-      <% } %>
+      <a class="btn btn-info btn-lg" href = "http://localhost:8080/urls/new" role="button" style=" background-color: #FDCA40; " >Try me!</a>
     </p>
   </div>
 
   <div  style="font-size:20px; margin: 40px;">
+    <!-- if an error message is being passed -->
     <% if (err){ %>
       <div class="alert alert-danger" role="alert" style="width:500px" align="center" ><%=err%></div>
     <% } %>
+
     <h3 class="display-3" style="color:#31393C" >Your TinyURLs:</h3>
     <ul class="list-group" >
+      <!-- generate user's list of TinyURLs -->
       <% for( let i in urls[id] ) { %>
         <li class = "list-group-item" >
 

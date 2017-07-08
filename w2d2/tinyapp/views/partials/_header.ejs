@@ -1,13 +1,13 @@
 <div style=" background-color: #2176FF;" class = "container.fluid">
 
   <div class = "row">
-
+    <!-- logo -->
     <div class = "col-sm-4" style="font-size:20px; padding-bottom: 20px; ">
       <h1 style="padding-left: 40px; font-weight: bold; " ><a href="/urls" style="  color: #F9F9F9 ; text-decoration: none" >TinyApp <span class="glyphicon glyphicon-scissors" aria-hidden="true" style="color: #FDCA40 "></span></a></h1>
     </div>
-
+    <!-- dead space -->
     <div class = "col-sm-5"></div>
-
+    <!-- user logged in -->
     <div class = "col-sm-3", style=" padding-top: 20px; padding-right: 20px; ">
       <% if (user){ %>
         <div align="right" style="padding-right: 20px">
@@ -16,6 +16,7 @@
             <input class="btn btn-danger" type="submit" value="logout"/>
           </form>
         </div>
+      <!-- user not logged in -->
       <% } else{ %>
         <div align = "right" style="padding-right: 20px" >
           <form action="/login" method="GET" style=" color: #F9F9F9; font-weight:bold; display: inline-block;" >
